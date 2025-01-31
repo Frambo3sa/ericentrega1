@@ -1,0 +1,22 @@
+<h3>Livros Disponíveis</h3>
+{{#if books.length}}
+  <div class="row">
+    {{#each books}}
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{title}}</span>
+            <p>Autor: {{author}}</p>
+            <p>Categoria: {{category}}</p>
+            <p>Cópias disponíveis: {{availableCopies}}</p>
+          </div>
+          <div class="card-action">
+            <a href="/books/{{id}}">Ver Detalhes</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <p>Não há livros disponíveis no momento.</p>
+{{/if}}

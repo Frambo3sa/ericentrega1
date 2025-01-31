@@ -1,0 +1,14 @@
+<h3>Detalhes do Livro</h3>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{book.title}}</span>
+    <p>Autor: {{book.author}}</p>
+    <p>Categoria: {{book.category}}</p>
+    <p>Cópias disponíveis: {{book.availableCopies}}</p>
+  </div>
+  <div class="card-action">
+    <form action="/loan/{{book.id}}" method="POST">
+      <button class="btn blue" {{#unless book.availableCopies}}disabled{{/unless}}>Solicitar Empréstimo</button>
+    </form>
+  </div>
+</div>

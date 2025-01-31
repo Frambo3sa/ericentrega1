@@ -1,0 +1,58 @@
+<h3>Dashboard do Administrador</h3>
+
+<h4>Usuários Cadastrados</h4>
+<ul>
+  {{#each users}}
+    <li>{{name}} - {{email}}</li>
+  {{/each}}
+</ul>
+
+<h4>Livros Cadastrados</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Autor</th>
+      <th>Categoria</th>
+      <th>Cópias Disponíveis</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each books}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{author}}</td>
+        <td>{{category}}</td>
+        <td>{{availableCopies}}</td>
+        <td>
+          <form action="/admin/books/edit/{{id}}" method="POST" style="display: inline;">
+            <button class="btn blue">Editar</button>
+          </form>
+          <form action="/admin/books/delete/{{id}}" method="POST" style="display: inline;">
+            <button class="btn red">Excluir</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h4>Adicionar Novo Livro</h4>
+<form action="/admin/books/add" method="POST">
+  <div class="input-field">
+    <input type="text" name="title" required placeholder="Título">
+  </div>
+  <div class="input-field">
+    <input type="text" name="author" required placeholder="Autor">
+  </div>
+  <div class="input-field">
+    <input type="text" name="category" required placeholder="Categoria">
+  </div>
+  <div class="input-field">
+    <input type="number" name="availableCopies" required placeholder="Cópias Disponíveis">
+  </div>
+  <button class="btn blue">Adicionar Livro</button>
+</form>
+
+<a href="/">Voltar à Página Inicial</a>
