@@ -26,12 +26,14 @@
         <td>{{category}}</td>
         <td>{{availableCopies}}</td>
         <td>
-          <form action="/admin/books/edit/{{id}}" method="POST" style="display: inline;">
+          <td>
+          <form action="/admin/books/edit/{{this.id}}" method="GET" style="display: inline;">
             <button class="btn blue">Editar</button>
           </form>
-          <form action="/admin/books/delete/{{id}}" method="POST" style="display: inline;">
+          <form action="/admin/books/delete/{{this.id}}" method="POST" style="display: inline;">
             <button class="btn red">Excluir</button>
           </form>
+        </td>
         </td>
       </tr>
     {{/each}}

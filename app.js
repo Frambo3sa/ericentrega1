@@ -30,29 +30,38 @@ const adminCredentials = { username: 'boss', password: '11118' };
 
 // Rotas principais
 app.get('/', async (req, res) => {
-  const books = await Book.findAll();
-  res.render('home', { books, isAdmin: req.session.isAdmin });
+  let books = await Book.findAll();
+  books = books.map((book) => book.dataValues);
+  res.render('books', { books, isAdmin: req.session.isAdmin });
 });
 
+// Rota para listar todos os livros
+app.get('/books', async (req, res) => {
+  let books = await Book.findAll();
+  books = books.map((book) => book.dataValues);
+  res.render('books', { books });
+});
+
+
 // Rotas de Usuário
-// Página de cadastro
+
 app.get('/register', (req, res) => {
   res.render('register');
 });
 
-// Registro de novos usuários
+
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   await User.create({ name, email, password });
   res.redirect('/login');
 });
 
-// Página de login
+
 app.get('/login', (req, res) => {
   res.render('login');
 });
 
-// Login de usuários
+
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email, password } });
@@ -83,8 +92,11 @@ app.get('/admin/dashboard', async (req, res) => {
   if (!req.session.isAdmin) {
     return res.redirect('/admin/login');
   }
-  const users = await User.findAll();
-  const books = await Book.findAll();
+  let users = await User.findAll();
+  let books = await Book.findAll();
+  books = books.map((book) => book.dataValues);
+  users = users.map((user) => user.dataValues);
+
   res.render('adminDashboard', { users, books });
 });
 
@@ -95,9 +107,19 @@ app.post('/admin/books/add', async (req, res) => {
   res.redirect('/admin/dashboard');
 });
 
+app.get('/admin/books/edit/:id', async (req, res) => {
+  let book = await Book.findByPk(req.params.id);
+  books = book.dataValues;
+  if (!book) {
+    return res.redirect('/admin/dashboard');
+  }
+  res.render('editBooks', { book });
+});
+
 app.post('/admin/books/edit/:id', async (req, res) => {
   const { title, author, category, availableCopies } = req.body;
-  const book = await Book.findByPk(req.params.id);
+  let book = await Book.findByPk(req.params.id);
+  books = book.dataValues;
   if (book) {
     book.title = title;
     book.author = author;
@@ -108,6 +130,7 @@ app.post('/admin/books/edit/:id', async (req, res) => {
   res.redirect('/admin/dashboard');
 });
 
+// Nova rota POST para exclusão de livros
 app.post('/admin/books/delete/:id', async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {

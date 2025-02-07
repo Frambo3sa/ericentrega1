@@ -1,0 +1,36 @@
+<h3>Lista de Livros</h3>
+{{#if books.length}}
+  <table>
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Categoria</th>
+        <th>Cópias Disponíveis</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each books}}
+        <tr>
+          <td>{{title}}</td>
+          <td>{{author}}</td>
+          <td>{{category}}</td>
+          <td>{{availableCopies}}</td>
+          <td>
+            <form action="/admin/books/edit/{{this.id}}" method="GET" style="display: inline;">
+                <button class="btn blue">Editar</button>
+            </form>
+            <form action="/admin/books/delete/{{this.id}}" method="POST" style="display: inline;">
+                <button class="btn red">Excluir</button>
+            </form>
+            </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p>Não há livros disponíveis no momento.</p>
+{{/if}}
+
+<a href="/admin/dashboard">Voltar ao Painel do Administrador</a>

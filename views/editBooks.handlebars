@@ -1,0 +1,22 @@
+<h3>Editar Livro</h3>
+<form action="/admin/books/edit/{{this.id}}" method="POST">
+  <div class="input-field">
+    <input type="text" name="title" value="{{book.title}}" required>
+    <label for="title">Título</label>
+  </div>
+  <div class="input-field">
+    <input type="text" name="author" value="{{book.author}}" required>
+    <label for="author">Autor</label>
+  </div>
+  <div class="input-field">
+    <input type="text" name="category" value="{{book.category}}" required>
+    <label for="category">Categoria</label>
+  </div>
+  <div class="input-field">
+    <input type="number" name="availableCopies" value="{{book.availableCopies}}" required>
+    <label for="availableCopies">Cópias Disponíveis</label>
+  </div>
+  <button class="btn blue">Salvar Alterações</button>
+</form>
+
+<a href="/admin/dashboard">Voltar ao Painel do Administrador</a>
